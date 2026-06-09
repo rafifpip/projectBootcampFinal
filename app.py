@@ -11,7 +11,7 @@ from pengkodean.eco_score import (
     calculate_eco_score,
     get_eco_status
 )
-from pengkodean.webcam_component import run_webcam
+# from pengkodean.webcam_component import run_webcam
 
 # =====================================
 # KONFIGURASI HALAMAN
@@ -52,7 +52,7 @@ YOLOv8 Waste Detection System
 tab1, tab2 = st.tabs(
     [
         "📁 Upload Image",
-        "📷 Webcam Realtime"
+        "📷 Ambil Foto"
     ]
 )
 
@@ -331,11 +331,36 @@ with tab1:
 with tab2:
 
     st.subheader(
-        "📷 Webcam Realtime Detection"
+        "📸 Ambil Foto Sampah"
     )
 
-    st.write(
-        "Klik START untuk mengaktifkan kamera."
+    photo = st.camera_input(
+        "Ambil foto sampah menggunakan kamera"
     )
 
-    run_webcam()
+    if photo is not None:
+
+        with tempfile.NamedTemporaryFile(
+            delete=False,
+            suffix=".jpg"
+        ) as tmp_file:
+
+            tmp_file.write(
+                photo.getvalue()
+            )
+
+            temp_path = tmp_file.name
+
+        result_image, detections = detect_image(
+            temp_path
+        )
+
+        st.image(
+            result_image,
+            channels="BGR",
+            use_container_width=True
+        )
+
+        st.success(
+            f"{len(detections)} objek terdeteksi"
+        )
