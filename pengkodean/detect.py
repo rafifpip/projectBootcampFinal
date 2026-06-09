@@ -1,5 +1,4 @@
 from ultralytics import YOLO
-import cv2
 
 # Load model sekali saja
 model = YOLO("model2/best_ncnn_model")

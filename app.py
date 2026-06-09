@@ -1,5 +1,4 @@
 import streamlit as st
-import cv2
 import tempfile
 import pandas as pd
 import plotly.express as px
@@ -144,10 +143,8 @@ with tab1:
             )
 
             st.image(
-                cv2.cvtColor(
-                    result_image,
-                    cv2.COLOR_BGR2RGB
-                ),
+                result_image,
+                channels="BGR",
                 use_container_width=True
             )
 
