@@ -1,6 +1,7 @@
 import streamlit as st
 import tempfile
 import pandas as pd
+import cv2
 import plotly.express as px
 
 from pengkodean.detect import detect_image
