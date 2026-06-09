@@ -1,8 +1,23 @@
 from ultralytics import YOLO
-from streamlit_webrtc import webrtc_streamer
+from streamlit_webrtc import (
+    webrtc_streamer,
+    RTCConfiguration
+)
 import av
 
 model = YOLO("model/best.pt")
+
+rtc_configuration = RTCConfiguration(
+    {
+        "iceServers": [
+            {
+                "urls": [
+                    "stun:stun.l.google.com:19302"
+                ]
+            }
+        ]
+    }
+)
 
 
 class VideoProcessor:
@@ -27,5 +42,10 @@ def run_webcam():
 
     webrtc_streamer(
         key="waste-camera",
-        video_processor_factory=VideoProcessor
+        rtc_configuration=rtc_configuration,
+        video_processor_factory=VideoProcessor,
+        media_stream_constraints={
+            "video": True,
+            "audio": False
+        }
     )
