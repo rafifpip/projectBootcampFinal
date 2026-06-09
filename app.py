@@ -334,33 +334,45 @@ with tab2:
         "📸 Ambil Foto Sampah"
     )
 
-    photo = st.camera_input(
-        "Ambil foto sampah menggunakan kamera"
+    camera_on = st.toggle(
+        "Aktifkan Kamera"
     )
 
-    if photo is not None:
+    if camera_on:
 
-        with tempfile.NamedTemporaryFile(
-            delete=False,
-            suffix=".jpg"
-        ) as tmp_file:
+        photo = st.camera_input(
+            "Ambil foto sampah"
+        )
 
-            tmp_file.write(
-                photo.getvalue()
+        if photo is not None:
+
+            with tempfile.NamedTemporaryFile(
+                delete=False,
+                suffix=".jpg"
+            ) as tmp_file:
+
+                tmp_file.write(
+                    photo.getvalue()
+                )
+
+                temp_path = tmp_file.name
+
+            result_image, detections = detect_image(
+                temp_path
             )
 
-            temp_path = tmp_file.name
+            st.image(
+                result_image,
+                channels="BGR",
+                use_container_width=True
+            )
 
-        result_image, detections = detect_image(
-            temp_path
-        )
+            st.success(
+                f"{len(detections)} objek terdeteksi"
+            )
 
-        st.image(
-            result_image,
-            channels="BGR",
-            use_container_width=True
-        )
+    else:
 
-        st.success(
-            f"{len(detections)} objek terdeteksi"
+        st.info(
+            "Kamera sedang dimatikan."
         )
