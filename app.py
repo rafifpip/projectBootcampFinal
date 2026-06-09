@@ -10,7 +10,7 @@ from pengkodean.eco_score import (
     calculate_eco_score,
     get_eco_status
 )
-from pengkodean.webcam_component import run_webcam
+#from pengkodean.webcam_component import run_webcam
 
 # =====================================
 # KONFIGURASI HALAMAN
@@ -327,14 +327,14 @@ with tab1:
 # TAB 2 - WEBCAM
 # ====================================================
 
-with tab2:
+# with tab2:
 
-    st.subheader(
-        "📷 Webcam Realtime Detection"
-    )
+#     st.subheader(
+#         "📷 Webcam Realtime Detection"
+#     )
 
-    st.write(
-        "Klik START untuk mengaktifkan kamera."
-    )
+#     st.write(
+#         "Klik START untuk mengaktifkan kamera."
+#     )
 
-    run_webcam()
+#     run_webcam()

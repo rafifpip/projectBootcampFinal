@@ -5,5 +5,5 @@ pandas
 plotly
 numpy
 pillow
-streamlit-webrtc
-av
+#streamlit-webrtc
+#av
