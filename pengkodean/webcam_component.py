@@ -2,7 +2,7 @@ from ultralytics import YOLO
 from streamlit_webrtc import webrtc_streamer
 import av
 
-model = YOLO("model2/best_ncnn_model")
+model = YOLO("model2/best.pt")
 
 
 class VideoProcessor:
