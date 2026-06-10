@@ -5,7 +5,7 @@ from streamlit_webrtc import (
 )
 import av
 
-model = YOLO("model/best.pt")
+model = YOLO("model2/best.pt")
 
 rtc_configuration = RTCConfiguration(
     {
