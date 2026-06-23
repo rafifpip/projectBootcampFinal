@@ -1,9 +1,9 @@
 def calculate_eco_score(stats):
 
     score_map = {
-        "Sampah Organik": 10,
-        "Sampah Anorganik": 20,
-        "Sampah B3": -10
+        "Organic Waste": 10,
+        "Inorganic Waste": 20,
+        "Hazardous Waste": -10
     }
 
     total_score = 0

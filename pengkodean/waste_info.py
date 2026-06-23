@@ -1,20 +1,21 @@
 WASTE_INFO = {
 
     "Sampah Organik": {
-        "description": "Sampah yang berasal dari makhluk hidup dan dapat terurai secara alami.",
-        "bin": "Sampah Organik",
-        "recommendation": "Dapat diolah menjadi kompos."
+        "description": "Waste derived from living organisms that can naturally decompose.",
+        "bin": "Organic Waste Bin",
+        "recommendation": "Can be processed into compost."
     },
 
     "Sampah Anorganik": {
-        "description": "Sampah yang sulit terurai secara alami.",
-        "bin": "Sampah Anorganik",
-        "recommendation": "Pisahkan untuk proses daur ulang."
+        "description": "Waste materials that do not easily decompose naturally.",
+        "bin": "Inorganic Waste Bin",
+        "recommendation": "Separate and send for recycling."
     },
 
     "Sampah B3": {
-        "description": "Bahan Berbahaya dan Beracun.",
-        "bin": "Sampah B3",
-        "recommendation": "Harus dikelola secara khusus."
+        "description": "Hazardous and toxic waste materials that require special handling.",
+        "bin": "Hazardous Waste Bin",
+        "recommendation": "Must be managed and disposed of according to safety regulations."
     }
+
 }
