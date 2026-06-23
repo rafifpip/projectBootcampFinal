@@ -52,7 +52,7 @@ YOLOv8 Waste Detection System
 tab1, tab2 = st.tabs(
     [
         "📁 Upload Image",
-        "📷 Ambil Foto"
+        "📷 Take Photo"
     ]
 )
 
