@@ -6,5 +6,6 @@ numpy
 pillow
 streamlit-webrtc
 av
+onnxruntime
 
 opencv-python-headless==4.10.0.84
