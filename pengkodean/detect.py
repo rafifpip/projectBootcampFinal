@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 
 # Load model sekali saja
-model = YOLO("model2/best.pt")
+model = YOLO("model2/yolov8.onnx")
 
 def detect_image(image_path):
 
