@@ -14,7 +14,7 @@ from pengkodean.eco_score import (
 # from pengkodean.webcam_component import run_webcam
 
 # =====================================
-# PAGE CONFIGURATION
+# KONFIGURASI HALAMAN
 # =====================================
 
 st.set_page_config(
@@ -30,7 +30,7 @@ st.set_page_config(
 st.markdown("""
 # ♻ Smart Recycling Assistant
 
-### AI-Powered Waste Detection and Management System
+### Sistem Deteksi dan Pengelolaan Sampah Berbasis Artificial Intelligence
 """)
 
 # =====================================
@@ -52,7 +52,7 @@ YOLOv8 Waste Detection System
 tab1, tab2 = st.tabs(
     [
         "📁 Upload Image",
-        "📸 Take Photo"
+        "📷 Take Photo"
     ]
 )
 
@@ -63,7 +63,7 @@ tab1, tab2 = st.tabs(
 with tab1:
 
     uploaded_file = st.file_uploader(
-        "Upload a waste image",
+        "Upload gambar sampah",
         type=["jpg", "jpeg", "png"]
     )
 
@@ -74,7 +74,7 @@ with tab1:
         if uploaded_file.size > max_size:
 
             st.error(
-                "File size exceeds 5 MB."
+                "Ukuran file melebihi 5 MB."
             )
 
             st.stop()
@@ -92,13 +92,19 @@ with tab1:
 
             temp_path = tmp_file.name
 
+        # YOLO Detection
+
         result_image, detections = detect_image(
             temp_path
         )
 
+        # Statistik
+
         stats = count_classes(
             detections
         )
+
+        # Eco Score
 
         eco_score = calculate_eco_score(
             stats
@@ -108,16 +114,22 @@ with tab1:
             eco_score
         )
 
+        # Sidebar
+
         st.sidebar.success(
-            f"{len(detections)} objects detected"
+            f"{len(detections)} objek terdeteksi"
         )
+
+        # =====================================
+        # INPUT VS OUTPUT
+        # =====================================
 
         col1, col2 = st.columns(2)
 
         with col1:
 
             st.subheader(
-                "📥 Input Image"
+                "📥 Gambar Input"
             )
 
             st.image(
@@ -128,7 +140,7 @@ with tab1:
         with col2:
 
             st.subheader(
-                "📷 Detection Result"
+                "📷 Hasil Deteksi"
             )
 
             st.image(
@@ -137,14 +149,18 @@ with tab1:
                 use_container_width=True
             )
 
+        # =====================================
+        # INFORMASI SAMPAH
+        # =====================================
+
         st.subheader(
-            "♻ Waste Information"
+            "♻ Informasi Sampah"
         )
 
         if len(detections) == 0:
 
             st.warning(
-                "No objects detected."
+                "Tidak ada objek terdeteksi."
             )
 
         else:
@@ -161,13 +177,13 @@ with tab1:
 
                 with st.container():
 
-                    if "Organic" in class_name:
+                    if "Organik" in class_name:
 
                         st.success(
                             class_name
                         )
 
-                    elif "Inorganic" in class_name:
+                    elif "Anorganik" in class_name:
 
                         st.info(
                             class_name
@@ -190,30 +206,34 @@ with tab1:
                     )
 
                     st.caption(
-                        f"Model Confidence: {confidence:.2%}"
+                        f"Tingkat Keyakinan Model: {confidence:.2%}"
                     )
 
                     if info:
 
                         st.write(
-                            f"**Description:** {info['description']}"
+                            f"**Deskripsi:** {info['description']}"
                         )
 
                         st.write(
-                            f"**Waste Bin:** {info['bin']}"
+                            f"**Tempat Sampah:** {info['bin']}"
                         )
 
                         st.write(
-                            f"**Recommendation:** {info['recommendation']}"
+                            f"**Rekomendasi:** {info['recommendation']}"
                         )
 
                     else:
 
                         st.warning(
-                            f"Information for '{class_name}' is not available yet."
+                            f"Informasi untuk '{class_name}' belum tersedia."
                         )
 
                     st.divider()
+
+        # =====================================
+        # ECO SCORE
+        # =====================================
 
         st.subheader(
             "♻ Eco Score"
@@ -237,8 +257,12 @@ with tab1:
                 eco_status
             )
 
+        # =====================================
+        # STATISTIK
+        # =====================================
+
         st.subheader(
-            "📊 Waste Statistics"
+            "📊 Statistik Sampah"
         )
 
         if len(stats) > 0:
@@ -250,22 +274,22 @@ with tab1:
             with metric_col1:
 
                 st.metric(
-                    "Total Detected Objects",
+                    "Total Objek Terdeteksi",
                     sum(stats.values())
                 )
 
             with metric_col2:
 
                 st.metric(
-                    "Number of Categories",
+                    "Jumlah Kategori",
                     len(stats)
                 )
 
             df = pd.DataFrame(
                 list(stats.items()),
                 columns=[
-                    "Category",
-                    "Count"
+                    "Kategori",
+                    "Jumlah"
                 ]
             )
 
@@ -276,9 +300,9 @@ with tab1:
 
             fig = px.pie(
                 df,
-                values="Count",
-                names="Category",
-                title="Waste Category Distribution"
+                values="Jumlah",
+                names="Kategori",
+                title="Distribusi Jenis Sampah"
             )
 
             st.plotly_chart(
@@ -293,31 +317,31 @@ with tab1:
 
             st.info(
                 f"""
-                The most dominant waste category is
+                Kategori sampah yang paling dominan adalah
                 **{dominant}**
-                with a total of
-                **{stats[dominant]} objects**.
+                dengan jumlah
+                **{stats[dominant]} objek**.
                 """
             )
 
 # ====================================================
-# TAB 2 - CAMERA
+# TAB 2 - WEBCAM
 # ====================================================
 
 with tab2:
 
     st.subheader(
-        "📸 Capture Waste Image"
+        "📸 Ambil Foto Sampah"
     )
 
     camera_on = st.toggle(
-        "Enable Camera"
+        "Aktifkan Kamera"
     )
 
     if camera_on:
 
         photo = st.camera_input(
-            "Take a photo of the waste"
+            "Ambil foto sampah"
         )
 
         if photo is not None:
@@ -344,11 +368,11 @@ with tab2:
             )
 
             st.success(
-                f"{len(detections)} objects detected"
+                f"{len(detections)} objek terdeteksi"
             )
 
     else:
 
         st.info(
-            "Camera is currently disabled."
+            "Kamera sedang dimatikan."
         )

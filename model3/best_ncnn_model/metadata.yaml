@@ -1,0 +1,21 @@
+description: Ultralytics best model trained on /content/SAMPAH-BRIN-COKKKKKKKKKK-3/data.yaml
+author: Ultralytics
+date: '2026-06-22T07:55:35.751377'
+version: 8.4.75
+license: AGPL-3.0 License (https://ultralytics.com/license)
+docs: https://docs.ultralytics.com
+stride: 32
+task: detect
+batch: 1
+imgsz:
+- 320
+- 320
+names:
+  0: Sampah Anorganik
+  1: Sampah B3
+  2: Sampah Organik
+args:
+  batch: 1
+  half: false
+channels: 3
+end2end: false
